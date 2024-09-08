@@ -1,0 +1,24 @@
+/* src/styles/index.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  /* max-width: 90rem; */
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  background-color: #071422;
+
+  font-family: 'Nunito', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px #3294F8;
+  }
