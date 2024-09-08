@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Header } from './components/Header';
 import { Blog } from './pages/Blog';
+import { ErrorPage } from './pages/ErrorPage';
+import { Header } from './components/Header';
 import { Post } from './pages/Post';
 
 export function App() {
@@ -10,8 +11,18 @@ export function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Blog />} />
-          <Route path="/post" element={<Post />} />
+          <Route
+            path="/"
+            element={<Blog />}
+          />
+          <Route
+            path="/post"
+            element={<Post />}
+          />
+          <Route
+            path="*"
+            element={<ErrorPage />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
