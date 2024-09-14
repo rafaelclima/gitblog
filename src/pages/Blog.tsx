@@ -1,23 +1,39 @@
 import { ArrowSquareOut, Building, GithubLogo, UsersThree } from '@phosphor-icons/react';
 
-import avatar from '../assets/avatar.png';
+import { Repos } from '../components/Repos';
+import { useFetchData } from '../services/fetchData';
 
 export const Blog = () => {
+  const { data, isLoading, error } = useFetchData();
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+  //console.log(data);
+
   return (
     <main className=" max-w-[864px] m-auto mt-[-74px]">
       <section className=" flex items-center justify-between w-full h-[212px] gap-8 rounded-[10px] bg-base-profile shadow-custom opacity-90 p-8 pl-10 mb-[72px]">
         <img
-          src={avatar}
+          src={data.avatar_url}
           className=" w-[9.25rem] h-[9.25rem] rounded-lg  "
           alt="Foto do perfil do github"
         />
         <div className=" flex flex-col justify-between items-start ">
           <div className=" flex items-center justify-between w-full ">
             <h2 className=" font-bold text-2xl leading-{130} mb-2 text-base-title ">
-              Nome do desenvolvedor
+              {data.name}
             </h2>
             <span className=" flex items-center gap-1 uppercase text-xs font-bold leading-160 text-base-blue">
-              GitHub{' '}
+              <a
+                href={data.html_url}
+                target="_blank"
+                rel="noopener noreferrer">
+                GitHub
+              </a>
               <ArrowSquareOut
                 size={12}
                 weight="bold"
@@ -25,8 +41,7 @@ export const Blog = () => {
             </span>
           </div>
           <p className=" font-normal text-base leading-160 text-base-title mb-6">
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa
-            quam dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.
+            {data.bio}
           </p>
 
           <footer className=" flex justify-between items-center gap-6">
@@ -37,7 +52,7 @@ export const Blog = () => {
                 weight="fill"
               />
               <p className=" font-normal text-base leading-160 text-base-subtitle">
-                Usuário do Git
+                {data.login}
               </p>
             </div>
             <div className=" flex justify-center items-center gap-2">
@@ -47,7 +62,7 @@ export const Blog = () => {
                 weight="fill"
               />
               <p className=" font-normal text-base leading-160 text-base-subtitle">
-                Empresa
+                {data.company || 'Não informado'}
               </p>
             </div>
             <div className=" flex justify-center items-center gap-2">
@@ -57,7 +72,7 @@ export const Blog = () => {
                 weight="fill"
               />
               <p className=" font-normal text-base leading-160 text-base-subtitle">
-                <span>XX</span> seguidores
+                <span>{data.followers}</span> seguidores
               </p>
             </div>
           </footer>
@@ -70,7 +85,7 @@ export const Blog = () => {
             Publicações
           </h3>
           <p className=" text-base-span text-sm font-regular leading-160 ">
-            <span>XX</span> publicações
+            <span>{data.public_repos}</span> publicações
           </p>
         </div>
 
@@ -83,68 +98,7 @@ export const Blog = () => {
         />
       </section>
 
-      <section className=" grid grid-cols-2 gap-8 justify-items-center mb-[234px] ">
-        <div className=" flex flex-col justify-center gap-5 p-8 rounded-[10px] bg-base-post ">
-          <div className=" flex justify-between items-center ">
-            <h2 className=" text-base-title font-bold text-xl leading-160 ">
-              Nome do post
-            </h2>
-            <span className=" text-base-span font-regular text-sm leading-160 ">
-              há X dias
-            </span>
-          </div>
-          <p className=" text-base-span font-regular text-base leading-160 line-clamp-4 ">
-            Programming languages all have built-in data structures, but these often
-            differ from one language to another. This article attempts to list the
-            built-in data structures available in each programming language.
-          </p>
-        </div>
-        <div className=" flex flex-col justify-center gap-5 p-8 rounded-[10px] bg-base-post ">
-          <div className=" flex justify-between items-center ">
-            <h2 className=" text-base-title font-bold text-xl leading-160 ">
-              Nome do post
-            </h2>
-            <span className=" text-base-span font-regular text-sm leading-160 ">
-              há X dias
-            </span>
-          </div>
-          <p className=" text-base-span font-regular text-base leading-160 line-clamp-4 ">
-            Programming languages all have built-in data structures, but these often
-            differ from one language to another. This article attempts to list the
-            built-in data structures available in each programming language.
-          </p>
-        </div>
-        <div className=" flex flex-col justify-center gap-5 p-8 rounded-[10px] bg-base-post ">
-          <div className=" flex justify-between items-center ">
-            <h2 className=" text-base-title font-bold text-xl leading-160 ">
-              Nome do post
-            </h2>
-            <span className=" text-base-span font-regular text-sm leading-160 ">
-              há X dias
-            </span>
-          </div>
-          <p className=" text-base-span font-regular text-base leading-160 line-clamp-4 ">
-            Programming languages all have built-in data structures, but these often
-            differ from one language to another. This article attempts to list the
-            built-in data structures available in each programming language.
-          </p>
-        </div>
-        <div className=" flex flex-col justify-center gap-5 p-8 rounded-[10px] bg-base-post ">
-          <div className=" flex justify-between items-center ">
-            <h2 className=" text-base-title font-bold text-xl leading-160 ">
-              Nome do post
-            </h2>
-            <span className=" text-base-span font-regular text-sm leading-160 ">
-              há X dias
-            </span>
-          </div>
-          <p className=" text-base-span font-regular text-base leading-160 line-clamp-4 ">
-            Programming languages all have built-in data structures, but these often
-            differ from one language to another. This article attempts to list the
-            built-in data structures available in each programming language.
-          </p>
-        </div>
-      </section>
+      <Repos />
     </main>
   );
 };
