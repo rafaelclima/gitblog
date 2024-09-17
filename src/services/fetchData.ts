@@ -29,6 +29,18 @@ export const useFetchRepoData = (page: number) => {
   });
 };
 
+export const useFetchMostPopular = () => {
+  return useQuery({
+    queryKey: ['mostPopular'],
+    queryFn: async () => {
+      const response = await axios.get(
+        'https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&page=1&per_page=10',
+      );
+      return response.data;
+    },
+  });
+};
+
 // export function useFetchRepoData() {
 //   return useQuery({
 //     queryKey: ['repos'],
